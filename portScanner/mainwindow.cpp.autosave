@@ -111,7 +111,6 @@ void MainWindow::scan(QStringList* ipList, uint16_t startPort, uint16_t endPort,
             ui->scanInfo->append(ip + " [" + QString::number(port) + "] " + (b ? "open" : "close"));
             QCoreApplication::processEvents();
             qDebug() << ip + " [" + QString::number(port) + "] " + (b ? "open" : "close");
-
         }
     }
 }
