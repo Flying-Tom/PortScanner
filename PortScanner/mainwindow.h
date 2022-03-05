@@ -37,6 +37,7 @@ private:
     QStringList* getIPList();
     void scan(QStringList* ipList, uint16_t startPort, uint16_t endPort, int timeout);
     MyThread* threadArray[10];
+    int cnt;
 };
 
 #endif // MAINWINDOW_H

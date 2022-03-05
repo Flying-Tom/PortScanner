@@ -70,6 +70,7 @@ public:
     QLabel *label_13;
     QLabel *label_14;
     QLabel *label_15;
+    QLabel *labelComplete;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -321,6 +322,13 @@ public:
         label_15->setObjectName(QStringLiteral("label_15"));
         label_15->setGeometry(QRect(750, 250, 151, 39));
         label_15->setFont(font1);
+        labelComplete = new QLabel(centralWidget);
+        labelComplete->setObjectName(QStringLiteral("labelComplete"));
+        labelComplete->setGeometry(QRect(350, 250, 191, 31));
+        QFont font4;
+        font4.setPointSize(14);
+        labelComplete->setFont(font4);
+        labelComplete->setTextFormat(Qt::PlainText);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -358,6 +366,7 @@ public:
         label_13->setText(QApplication::translate("MainWindow", " (ms)", Q_NULLPTR));
         label_14->setText(QApplication::translate("MainWindow", "Scanning Info :", Q_NULLPTR));
         label_15->setText(QApplication::translate("MainWindow", "open port :", Q_NULLPTR));
+        labelComplete->setText(QApplication::translate("MainWindow", "Scanning complete!", Q_NULLPTR));
     } // retranslateUi
 
 };

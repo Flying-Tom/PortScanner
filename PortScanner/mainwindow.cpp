@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
         threadArray[i] = nullptr;
     }
 
+    ui->labelComplete->hide();
+
     //    QString ip = "47.110.136.219";
     //    QList<int> l;
     //    l.append(80);
@@ -103,8 +105,12 @@ QStringList* MainWindow::getIPList(){
 
 void MainWindow::on_btnStartScan_clicked()
 {
+    ui->labelComplete->hide();
     ui->btnStartScan->setEnabled(false);
     ui->scanInfo->clear();
+    ui->openPortInfo->clear();
+    cnt = 0;
+
     qDebug() << "Start button clicked, start scanning!";
     qDebug() << "------------------------------------";
     ui->scanInfo->append("Start scanning!");
@@ -190,13 +196,15 @@ void MainWindow::on_btnStopScan_clicked()
             threadArray[i] = nullptr;
         }
     }
+    ui->btnStartScan->setEnabled(true);
 }
 
 void MainWindow::updateUI(QString *ip, int port, bool isOpen){
+    cnt++;
     qDebug() << "Main thread: " << (*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]";
-    ui->scanInfo->append((*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
+    ui->scanInfo->append(QString::number(cnt) + ":   " + (*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
     if(isOpen){
-        ui->openPortInfo->append((*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
+        ui->openPortInfo->append(QString::number(cnt)+ ":   " + (*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
     }
     for(int i = 0; i < 10; i++){
 //        qDebug() << threadArray[i];
@@ -215,10 +223,12 @@ void MainWindow::threadFinish(MyThread *p){
         }
         if(threadArray[i] != nullptr && !threadArray[i]->isRunning()){
             delete threadArray[i];
-            threadArray[i] = 0;
+            threadArray[i] = nullptr;
         }
     }
     if(allFinished){
         ui->btnStartScan->setEnabled(true);
+        ui->labelComplete->setStyleSheet("color:red;");
+        ui->labelComplete->show();
     }
 }
