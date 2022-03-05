@@ -1,9 +1,9 @@
 # Port Scanner (QT)
 This is a multi-thread GUI port scanner implemented by QT5.
 
-Some port may be incorrectly detected because of a small timeout setting.
+Known bugs: Some open ports may be incorrectly ignored if the timeout chosen is too short.
 
-It is recommended to run on Ubuntu.
+It is recommended to choose a small thread number (< 5) if the timeout is less than 200ms.
 
 ![example](example.png)
 
