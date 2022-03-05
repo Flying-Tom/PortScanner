@@ -63,11 +63,13 @@ public:
     QLabel *label_10;
     QSpinBox *endPort;
     QTextBrowser *openPortInfo;
-    QWidget *widget;
+    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_12;
     QSpinBox *timeout;
     QLabel *label_13;
+    QLabel *label_14;
+    QLabel *label_15;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -76,7 +78,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1028, 716);
+        MainWindow->resize(1028, 745);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         btnStartScan = new QPushButton(centralWidget);
@@ -91,7 +93,7 @@ public:
         btnStopScan->setFont(font);
         scanInfo = new QTextBrowser(centralWidget);
         scanInfo->setObjectName(QStringLiteral("scanInfo"));
-        scanInfo->setGeometry(QRect(50, 260, 661, 371));
+        scanInfo->setGeometry(QRect(50, 290, 661, 371));
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(50, 34, 911, 51));
@@ -281,22 +283,22 @@ public:
 
         openPortInfo = new QTextBrowser(centralWidget);
         openPortInfo->setObjectName(QStringLiteral("openPortInfo"));
-        openPortInfo->setGeometry(QRect(740, 260, 231, 371));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(550, 110, 351, 41));
-        horizontalLayout_4 = new QHBoxLayout(widget);
+        openPortInfo->setGeometry(QRect(740, 290, 231, 371));
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(550, 110, 351, 41));
+        horizontalLayout_4 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        label_12 = new QLabel(widget);
+        label_12 = new QLabel(layoutWidget3);
         label_12->setObjectName(QStringLiteral("label_12"));
         label_12->setFont(font1);
 
         horizontalLayout_4->addWidget(label_12);
 
-        timeout = new QSpinBox(widget);
+        timeout = new QSpinBox(layoutWidget3);
         timeout->setObjectName(QStringLiteral("timeout"));
         timeout->setFont(font2);
         timeout->setMinimum(1);
@@ -305,12 +307,20 @@ public:
 
         horizontalLayout_4->addWidget(timeout);
 
-        label_13 = new QLabel(widget);
+        label_13 = new QLabel(layoutWidget3);
         label_13->setObjectName(QStringLiteral("label_13"));
         label_13->setFont(font1);
 
         horizontalLayout_4->addWidget(label_13);
 
+        label_14 = new QLabel(centralWidget);
+        label_14->setObjectName(QStringLiteral("label_14"));
+        label_14->setGeometry(QRect(70, 250, 285, 39));
+        label_14->setFont(font1);
+        label_15 = new QLabel(centralWidget);
+        label_15->setObjectName(QStringLiteral("label_15"));
+        label_15->setGeometry(QRect(750, 250, 151, 39));
+        label_15->setFont(font1);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -346,6 +356,8 @@ public:
         label_10->setText(QApplication::translate("MainWindow", "-", Q_NULLPTR));
         label_12->setText(QApplication::translate("MainWindow", "Timeout:", Q_NULLPTR));
         label_13->setText(QApplication::translate("MainWindow", " (ms)", Q_NULLPTR));
+        label_14->setText(QApplication::translate("MainWindow", "Scanning Info :", Q_NULLPTR));
+        label_15->setText(QApplication::translate("MainWindow", "open port :", Q_NULLPTR));
     } // retranslateUi
 
 };

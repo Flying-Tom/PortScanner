@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1028</width>
-    <height>716</height>
+    <height>745</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,7 +54,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>260</y>
+      <y>290</y>
       <width>661</width>
       <height>371</height>
      </rect>
@@ -418,13 +418,13 @@
     <property name="geometry">
      <rect>
       <x>740</x>
-      <y>260</y>
+      <y>290</y>
       <width>231</width>
       <height>371</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -477,6 +477,42 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>250</y>
+      <width>285</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Scanning Info :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_15">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>250</y>
+      <width>151</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>open port :</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

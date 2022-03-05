@@ -17,6 +17,7 @@ void MyThread::run()
         qDebug() << "Subthread: " << *ip + " [" + QString::number(port) + "] " + (b ? "open" : "close");
         emit done(this->ip, port, b);
     }
+    emit finish(this);
 }
 
 MyThread::~MyThread(){

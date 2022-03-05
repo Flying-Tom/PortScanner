@@ -7,35 +7,41 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    QString ip = "47.110.136.219";
-//    QList<int> l;
-//    l.append(80);
-//    l.append(81);
-//    l.append(82);
-//    l.append(83);
-//    l.append(84);
 
-//    MyThread * t = new MyThread(&ip, &l, 100);
-//    MyThread * t1 = new MyThread(&ip, &l, 100);
-//    connect(t, SIGNAL(done(QString *, int, bool)), this, SLOT(updateUI(QString *, int, bool)));
-//    connect(t1, SIGNAL(done(QString *, int, bool)), this, SLOT(updateUI(QString *, int, bool)));
-//    t->start();
-//    t1->start();
+    for(int i = 0; i < 10; i++){
+        threadArray[i] = nullptr;
+    }
+
+    //    QString ip = "47.110.136.219";
+    //    QList<int> l;
+    //    l.append(80);
+    //    l.append(81);
+    //    l.append(82);
+    //    l.append(83);
+    //    l.append(84);
+    //    QString ip2 = "47.110.136.220";
+    //    QString ip3 = "47.110.136.221";
+
+    //    MyThread * t = new MyThread(&ip, &l, 1000);
+    //    MyThread * t1 = new MyThread(&ip2, &l, 1000);
+    //    MyThread * t2 = new MyThread(&ip3, &l, 1000);
+
+    //    connect(t, SIGNAL(done(QString *, int, bool)), this, SLOT(updateUI(QString *, int, bool)));
+    //    connect(t1, SIGNAL(done(QString *, int, bool)), this, SLOT(updateUI(QString *, int, bool)));
+    //    connect(t2, SIGNAL(done(QString *, int, bool)), this, SLOT(updateUI(QString *, int, bool)));
+
+    //    threadArray[0] = t;
+    //    threadArray[1] = t1;
+    //    threadArray[2] = t2;
+
+    //    threadArray[0]->start();
+    //    threadArray[1]->start();
+    //    threadArray[2]->start();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-bool MainWindow::testPort(QTcpSocket * socket_, char* ip, uint16_t port, int timeout){
-    socket_->close();
-    socket_->connectToHost(ip, port);
-    if(socket_->waitForConnected(timeout)) {
-        return true; // connect success
-    }else{
-        return false;
-    }
 }
 
 QString ip2str(uint32_t ip){
@@ -95,29 +101,9 @@ QStringList* MainWindow::getIPList(){
     return ipList;
 }
 
-
-
-void MainWindow::scan(QStringList* ipList, uint16_t startPort, uint16_t endPort, int timeout){
-    QList<int> l;
-    for(QString ip : (*ipList)){
-        ui->scanInfo->append("---------------------------------------");
-        ui->scanInfo->append("Start to scan IP "+ip);
-        for(uint16_t port = startPort; port <= endPort; port++){
-            bool b = true;
-            if(b){
-                ui->openPortInfo->append(ip + ": " + QString::number(port));
-                l.append(port);
-            }
-            ui->scanInfo->append(ip + ": " + QString::number(port) + "  " + (b ? "[open]" : "[close]"));
-            QCoreApplication::processEvents();
-            qDebug() << ip + " [" + QString::number(port) + "] " + (b ? "open" : "close");
-        }
-    }
-    qDebug() << l;
-}
-
 void MainWindow::on_btnStartScan_clicked()
 {
+    ui->btnStartScan->setEnabled(false);
     ui->scanInfo->clear();
     qDebug() << "Start button clicked, start scanning!";
     qDebug() << "------------------------------------";
@@ -132,18 +118,107 @@ void MainWindow::on_btnStartScan_clicked()
         delete ipList;
         return;
     }
+
+    int threadNum = ui->threadNum->value();
+    int startPort = ui->startPort->value();
+    int endPort = ui->endPort->value();
+    int portNum = endPort - startPort + 1;
+    int timeout = ui->timeout->value();
+
+    if(endPort < startPort){
+        qDebug() << "Port range error!";
+        ui->scanInfo->append("Port range error!");
+        ui->scanInfo->append("Please check the port range input!");
+        delete ipList;
+        return;
+    }
+
     ui->scanInfo->append(QString::number(ipList->size()) + " IP addresses to scan...");
     ui->scanInfo->append("From "+ipList->first() + " to " + ipList->last());
-    int timeout = ui->timeout->value();
-    scan(ipList, (uint16_t)ui->startPort->value(), (uint16_t)ui->endPort->value(), timeout);
+
+    QList<int>* portListArray[threadNum];
+    for(int i = 0; i < threadNum; i++){
+        portListArray[i] = new QList<int>();
+    }
+
+    int portNumPerThread = portNum / threadNum;
+    if(portNum % threadNum != 0){
+        portNumPerThread++;
+    }
+    for(int i = startPort; i <= endPort; i++){
+        portListArray[(i - startPort) / portNumPerThread]->append(i);
+    }
+
+    for(QString ip : (*ipList)){
+        for(int i = 0; i < threadNum; i++){
+            qDebug() << "start thread " << i;
+            threadArray[i] = new MyThread(&ip, portListArray[i], timeout);
+            connect(threadArray[i], SIGNAL(done(QString *, int, bool)), this, SLOT(updateUI(QString *, int, bool)));
+            // threadFinish
+            connect(threadArray[i], SIGNAL(finish(MyThread *)), this, SLOT(threadFinish(MyThread *)));
+            threadArray[i]->start();
+        }
+    }
+
+//    while(1){
+//        bool hasNotFinished = false;
+//        for(int i = 0; i < 10; i++){
+//            if(threadArray[i] != nullptr && threadArray[i]->isRunning()){
+//                hasNotFinished = true;
+//                break;
+//            }else{
+//                threadArray[i] = nullptr;
+//            }
+//        }
+//        if(hasNotFinished){
+//            QThread::sleep(1);
+//        }
+//        else
+//            break;
+//    }
+//    ui->btnStartScan->setDisabled(false);
     delete ipList;
 }
 
 void MainWindow::on_btnStopScan_clicked()
 {
-
+    qDebug() << "Click stop scan...";
+    for(int i = 0; i < 10; i++){
+        if(threadArray[i] != nullptr && threadArray[i]->isRunning()){
+            qDebug() << "stop thread " << i;
+            threadArray[i]->terminate();
+            threadArray[i] = nullptr;
+        }
+    }
 }
 
 void MainWindow::updateUI(QString *ip, int port, bool isOpen){
+    qDebug() << "Main thread: " << (*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]";
+    ui->scanInfo->append((*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
+    if(isOpen){
+        ui->openPortInfo->append((*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
+    }
+    for(int i = 0; i < 10; i++){
+//        qDebug() << threadArray[i];
+        if(threadArray[i] != nullptr && !threadArray[i]->isRunning()){
+            threadArray[i] = nullptr;
+        }
+    }
+    QCoreApplication::processEvents();
+}
 
+void MainWindow::threadFinish(MyThread *p){
+    bool allFinished = true;
+    for(int i = 0; i < 10; i++){
+        if(threadArray[i] != nullptr && threadArray[i]->isRunning()){
+            allFinished = false;
+        }
+        if(threadArray[i] != nullptr && !threadArray[i]->isRunning()){
+            delete threadArray[i];
+            threadArray[i] = 0;
+        }
+    }
+    if(allFinished){
+        ui->btnStartScan->setEnabled(true);
+    }
 }

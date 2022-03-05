@@ -21,6 +21,7 @@ protected:
 
 signals:
     void done(QString *ip, int port, bool isOpen);
+    void finish(MyThread * p);
 };
 
 #endif // MYTHREAD_H

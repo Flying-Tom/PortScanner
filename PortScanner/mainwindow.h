@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QTcpSocket>
+#include <QThread>
+#include <mythread.h>
+
 
 namespace Ui {
 class MainWindow;
@@ -26,11 +29,14 @@ private slots:
 
     void updateUI(QString *ip, int port, bool isOpen);
 
+    void threadFinish(MyThread *p);
+
 private:
     Ui::MainWindow *ui;
     bool testPort(QTcpSocket * socket_, char* ip, uint16_t port, int timeout);
     QStringList* getIPList();
     void scan(QStringList* ipList, uint16_t startPort, uint16_t endPort, int timeout);
+    MyThread* threadArray[10];
 };
 
 #endif // MAINWINDOW_H
