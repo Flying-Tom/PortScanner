@@ -55,7 +55,7 @@
      <rect>
       <x>50</x>
       <y>260</y>
-      <width>921</width>
+      <width>661</width>
       <height>371</height>
      </rect>
     </property>
@@ -413,6 +413,16 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QTextBrowser" name="openPortInfo">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>260</y>
+      <width>231</width>
+      <height>371</height>
+     </rect>
+    </property>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">

@@ -16,9 +16,15 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void dealDone();   //线程槽函数
+    void stopThread();  //停止线程
 
 private slots:
     void on_btnStartScan_clicked();
+
+    void on_btnStopScan_clicked();
+
+    void updateUI(QString *ip, int port, bool isOpen);
 
 private:
     Ui::MainWindow *ui;
