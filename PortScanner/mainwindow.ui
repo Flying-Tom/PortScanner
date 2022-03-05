@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1028</width>
-    <height>745</height>
+    <height>773</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>180</y>
+      <y>190</y>
       <width>191</width>
       <height>51</height>
      </rect>
@@ -36,7 +36,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>180</y>
+      <y>190</y>
       <width>211</width>
       <height>51</height>
      </rect>
@@ -54,17 +54,22 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>290</y>
-      <width>661</width>
+      <y>310</y>
+      <width>451</width>
       <height>371</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>34</y>
+      <y>44</y>
       <width>911</width>
       <height>51</height>
      </rect>
@@ -193,8 +198,8 @@
         <font>
          <family>Ubuntu Condensed</family>
          <pointsize>20</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
        </property>
        <property name="text">
@@ -313,7 +318,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>180</y>
+      <y>190</y>
       <width>391</width>
       <height>41</height>
      </rect>
@@ -352,7 +357,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>110</y>
+      <y>120</y>
       <width>411</width>
       <height>41</height>
      </rect>
@@ -417,18 +422,23 @@
    <widget class="QTextBrowser" name="openPortInfo">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>290</y>
-      <width>231</width>
+      <x>560</x>
+      <y>310</y>
+      <width>411</width>
       <height>371</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>110</y>
+      <y>120</y>
       <width>351</width>
       <height>41</height>
      </rect>
@@ -482,7 +492,7 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>250</y>
+      <y>260</y>
       <width>285</width>
       <height>39</height>
      </rect>
@@ -499,8 +509,8 @@
    <widget class="QLabel" name="label_15">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>250</y>
+      <x>570</x>
+      <y>260</y>
       <width>151</width>
       <height>39</height>
      </rect>
@@ -517,8 +527,8 @@
    <widget class="QLabel" name="labelComplete">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>250</y>
+      <x>310</x>
+      <y>260</y>
       <width>191</width>
       <height>31</height>
      </rect>
@@ -533,6 +543,46 @@
     </property>
     <property name="textFormat">
      <enum>Qt::PlainText</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCopyIP">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>10</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Copy IP</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>10</y>
+      <width>191</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Port  scanner</string>
     </property>
    </widget>
   </widget>

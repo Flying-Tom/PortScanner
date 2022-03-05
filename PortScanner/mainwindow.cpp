@@ -202,7 +202,7 @@ void MainWindow::on_btnStopScan_clicked()
 void MainWindow::updateUI(QString *ip, int port, bool isOpen){
     cnt++;
     qDebug() << "Main thread: " << (*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]";
-    ui->scanInfo->append(QString::number(cnt) + ":   " + (*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
+    ui->scanInfo->append(QString::number(cnt) + ":   " + (*ip) + ": " + QString::number(port) + " " + (isOpen ? "<font color=green>[OPEN]</font>" : "<font color=red>[CLOSE]</font>"));
     if(isOpen){
         ui->openPortInfo->append(QString::number(cnt)+ ":   " + (*ip) + ": " + QString::number(port) + " [" + (isOpen?"open":"close") + "]");
     }
@@ -231,4 +231,12 @@ void MainWindow::threadFinish(MyThread *p){
         ui->labelComplete->setStyleSheet("color:red;");
         ui->labelComplete->show();
     }
+}
+
+void MainWindow::on_btnCopyIP_clicked()
+{
+    ui->endIP1->setValue(ui->startIP1->value());
+    ui->endIP2->setValue(ui->startIP2->value());
+    ui->endIP3->setValue(ui->startIP3->value());
+    ui->endIP4->setValue(ui->startIP4->value());
 }

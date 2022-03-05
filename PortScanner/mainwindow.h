@@ -31,6 +31,8 @@ private slots:
 
     void threadFinish(MyThread *p);
 
+    void on_btnCopyIP_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool testPort(QTcpSocket * socket_, char* ip, uint16_t port, int timeout);
