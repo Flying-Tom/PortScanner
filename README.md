@@ -1,9 +1,4 @@
 # Port Scanner (QT)
-
-[[中文](README_zh.md)]
-
-----
-
 This is a multi-thread GUI port scanner implemented by QT5.
 
 Known bugs: Some open ports may be incorrectly ignored if the timeout chosen is too short.
